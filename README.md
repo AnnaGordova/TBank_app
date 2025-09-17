@@ -7,7 +7,8 @@
 1. Через Docker
 
 2. Сборка напрямую из git репозитория (рекомендуется для Windows)
-   https://github.com/AnnaGordova/TBank_app.git
+   git clone https://github.com/AnnaGordova/TBank_app.git
+  
 
 ## Компоненты репозитория
 
