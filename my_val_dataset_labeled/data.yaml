@@ -1,0 +1,7 @@
+test: images
+train: images
+val: images
+
+nc: 1
+
+names: ['TBank']
