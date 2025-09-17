@@ -5,63 +5,63 @@
 ## Инструкция по запуску и использованию
 
 1. Через Docker :whale:
-    * Способ 1 (рекомендуемый): использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `ultralytics/ultralytics:latest`)
+    * **Способ 1 (рекомендуемый)**: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `ultralytics/ultralytics:latest`)
 
-        Скачиваем образ:
+        **Скачиваем образ:**
         ```
         sudo docker pull annagordova/logo-ultra:latest
         ```
 
-        Запуск на GPU:
+        **Запуск на GPU:**
         ```
         sudo docker run --shm-size 16g --name logo --network host --gpus all annagordova/logo-ultra
         ```
 
-        Запуск на CPU:
+        **Запуск на CPU:**
         ```
         sudo docker run --name logo --network host annagordova/logo-ultra
         ```
 
-    * Способ 2: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04`) 
+    * **Способ 2**: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04`) 
 
-        Скачиваем образ:
+        **Скачиваем образ:**
         ```
         sudo docker pull annagordova/logo:latest
         ```
 
-        Запуск на GPU:
+        **Запуск на GPU:**
         ```
         sudo docker run --shm-size 16g --name logo --network host --gpus all annagordova/logo
         ```
 
-        Запуск на CPU:
+        **Запуск на CPU:**
         ```
         sudo docker run --name logo --network host annagordova/logo
         ```
 
-    * Способ 3: собрать контейнер из этого репозитория (в основе лежит образ `ultralytics/ultralytics:latest`) 
+    * **Способ 3**: собрать контейнер из этого репозитория (в основе лежит образ `ultralytics/ultralytics:latest`) 
 
-        Скачиваем репозиторий:
+        **Скачиваем репозиторий:**
         ```
         git clone https://github.com/AnnaGordova/TBank_app.git
         ```
 
-        Переходим в корень скачанного репозитория:
+        **Переходим в корень скачанного репозитория:**
         ```
         cd TBank_app
         ```
 
-        Собираем Docker-образ:
+        **Собираем Docker-образ:**
         ```
         sudo docker build -t logo-detector . 
         ```
 
-        Запуск на GPU:
+        **Запуск на GPU:**
         ```
         sudo docker run --shm-size 16g --name logo --network host --gpus all logo-detector
         ```
 
-        Запуск на CPU:
+        **Запуск на CPU:**
         ```
         sudo docker run --name logo --network host logo-detector
         ```
