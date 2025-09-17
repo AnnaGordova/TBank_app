@@ -1,6 +1,6 @@
-<div style="text-align:center"><img src="readme_pictures\preview.jfif" width="100%" /></div>
+<div align="center"><img src="readme_pictures\preview.jfif" width="100%" /></div>
 
-<div style="text-align:center"><h1>Решение отборочного задания для трека Computer Vision "Детекция логотипа Т-Банка"</h1></div>
+<div align="center"><h1>Решение отборочного задания для трека Computer Vision "Детекция логотипа Т-Банка"</h1></div>
 
 ## Инструкция по запуску и использованию
 
@@ -46,7 +46,7 @@
 
 `OWLv2` хорошо предсказывает и находит на изображении объекты, которые широко распространены (кошка, дерево, самолет и т.д.). Данная модель не знает, что такое логотип Т-Банка, поэтому проводились эксперименты с различыми текстовыми промптами, его описывающими: "the letter T in the shield", "the shield with the letter T" и т.д. Image-guided подход также не дал хороших результатов. Самые точные предсказания модель выдавала при вводе текстового промпта "The letter T and the shield as a single unit". Ниже приведен пример детекции логотипа Т-Банка с выбранным промптом.
 
-<div style="text-align:center"><img src="readme_pictures\OWLv2_TBank_find.JPG" width="50%" /></div>
+<div align="center"><img src="readme_pictures\OWLv2_TBank_find.JPG" width="50%" /></div>
 
 Для проверки качества этой разметки (и не только этой разметки, но и окончательного варинта разметки и точности обучаемых моделей в целом) был собран валидационный набор данных, состоящий из изображений, на которых изображены:
 1. логотипы Т-Банка в разных вариациях (четкая проекция в СМИ и бытовые фото);
@@ -78,37 +78,33 @@
 6. буква "Т" с логотипа Т-Банка (1_OnlyT_224);
 
 Классы выбирались на основе тех типов логотипов, которые модель чаще всего принимала за логотип Т-Банка. Логотипы в собранной обучабщей выборке выглядят следующим образом: 
-<div style="text-align:center"><img src="readme_pictures\Only_TBank_logo.JPG" width="10%" /></div>
+<div align="center"><img src="readme_pictures\Only_TBank_logo.jpg" width="10%" /></div>
 
 Такой обрезанный формат необходим, так как классификатор будет распознавать содержимое внутри bounding box.
 
 Среди всех классов можно выделить пятый класс, содержащий изображения буквы "Т" с логотипа т-Банка. Он необходим, так как в первичной разметке модель иногда ошибочно выделяла как логотип целиком, так и букву Т на нем.
 
 Метрики качества классификатора приведены ниже.
-<div style="text-align:center"><img src="readme_pictures\classifier_metrics.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\classifier_metrics.jpg" width="100%" /></div>
 Точность предсказаний обученного классификатора будем считать удовлетворительным.
 
 Ниже приведены примеры, слева - как было до обработки классификатором, справа - как стало после обработки.
-
-<div>
-  <div style="display: flex; justify-content: center; gap: 20px;">
-    <img src="readme_pictures\With_T.JPG"  width="40%"/>
-    <img src="readme_pictures\Without_T.JPG"  width="40%"/>
-  </div>
-</div>
+ 
+<p align="center">
+  <img src="readme_pictures\With_T.jpg" width="40%"/>      
+  <img src="readme_pictures\Without_T.jpg" width="40%"/> 
+</p>
 
 Еще пример. Слева - было, справа - стало. Можно заметить, что чип на карте больше не входит в обучающую выборку. 
 
-<div>
-  <div style="display: flex; justify-content: center; gap: 20px;">
-    <img src="readme_pictures\Card_Before.JPG"  width="40%"/>
-    <img src="readme_pictures\Card_After.JPG"  width="40%"/>
-  </div>
-</div>
+<p align="center">
+  <img src="readme_pictures\Card_before.jpg" width="40%"/>
+  <img src="readme_pictures\Card_after.jpg" width="40%"/> 
+</p>
 
 На уже упомянутом валидационном датасете было проведено исследование точности вторичной разметки при помощи классификатора. Результаты приведены ниже.
 
-<img src="readme_pictures\Metrics_Classifier.JPG" width="70%" />
+<img src="readme_pictures\Metrics_classifier.JPG" width="70%" />
 
 Можем заметить, что точность увеличилась, а число ложных срабатываний значительно уменьшилось. Будем считать полученные результаты удовлетворительными, теперь мы имеем размеченный набор исходных данных, предоставленных организаторами.
 
@@ -116,19 +112,19 @@
 
 На полученном датасете была обучена модель `YOLOv8` (нано версия, далее будет обозначаться `YOLOv8n`). Ниже приведены метрики качества на размеченном вручную датасете, который мы уже использовали дважды для оценки качества первичной (после `OWLv2`) и вторичной (после `OWLv2` и классификатора) разметок. Результаты приведены ниже.
 
-<div style="text-align:center"><img src="readme_pictures\Without_augs.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\Without_augs.jpg" width="70%" /></div>
 
 Замечание. Забегая вперед, отмечу, что именно эта модель была интегрирована в REST-API сервис. Для того, чтобы воспроизвести результаты тестирования, в приложение был добавлен эндпоинт `/validate`. Он возвращает метрики по результатам тестирования на размеченном вручную валидационном датасете. Либо же можно воспользоваться скриптом `test_on_my_val_dataset_labeled.py` из директории `test_model` для получения метрик и скриптом `draw_on_my_val_dataset_labeled.py` для отрисовки результатов предсказаний (они будут сохранены в директории `draw_my_val_dataset_labeled`). 
 
 Также было произведено еще одно обучение с аугментациями перспективы и геометрии, ниже приведены его метрики качества. 
 
-<div style="text-align:center"><img src="readme_pictures\With_augs.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\With_augs.jpg" width="70%" /></div>
 
 В целом, ошутимой разницы нет, поэтому будем считать модели эквивалентными. 
 
 Возвращаясь к началу, вспомним, что мы хотели сравнить нашу модель с моделью, обученной на синтетических данных (использовалась та же `YOLOv8n`). Синтетические данные были получены следующим образом: различные ваирнаты логотипа Т-Банка накладывались на фоновые изображения или на шум. Размер синтетического датасета сопоставим с размером автоматически размеченного датасета. Ниже приведены метрики качecтва для модели `YOLOv8n`, обученной на синтетических данных.
 
-<div style="text-align:center"><img src="readme_pictures\Synth.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\Synth.jpg" width="70%" /></div>
 
 Легко заметить, что последняя модель явно проигрывает первым двум, что доказывает правильность выбранного подхода с автоматической разметкой. Из всех описанных выше моделей выберем первую (обученную на данных без аугментаций)  для последующего ее интегрирования в REST-API сервис. 
 
@@ -138,22 +134,22 @@
 
 В соответствии со спецификацией, предоставленной в техническом задании, был разработан REST-API сервис со следующими эндпоинтами (скриншоты приведены из документации Swagger, доступной по адресу ___):
 1. `/detect` (метод POST). Получает на вход изображение и возвращает координаты найденных логотипов.
-<div style="text-align:center"><img src="readme_pictures\detect.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\detect.JPG" width="80%" /></div>
 
 2. `/validate` (метод POST). Возвращает метрики по результатам тестирования на размеченном вручную валидационном датасете, который мы несколько раз уже упоминали.
-<div style="text-align:center"><img src="readme_pictures\validate.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\validate.JPG" width="80%" /></div>
 
 3. `/health` (метод GET). Возвращает состояние сервиса.
-<div style="text-align:center"><img src="readme_pictures\health.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\health.JPG" width="80%" /></div>
 
 4. `/device-info` (метод GET). Возвращает информацию о вычислителе, на котором работает модель.
-<div style="text-align:center"><img src="readme_pictures\device_info.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\device_info.JPG" width="80%" /></div>
 
 5. `/supported_formats` (метод GET). Возвращает поддерживаемые форматы изображений (эти форматы соответствуют техническому заданию).
-<div style="text-align:center"><img src="readme_pictures\supported_formats.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\supported_formats.JPG" width="80%" /></div>
 
 6. `/validation_config` (метод GET). Возвращает информацию о доступности валидационного датасета к работе.
-<div style="text-align:center"><img src="readme_pictures\validation_config.JPG" width="100%" /></div>
+<div align="center"><img src="readme_pictures\validation_config.JPG" width="80%" /></div>
 
 ## Выводы
 Предложенный метод хорошо распознает логотипы Т-Банка на изображениях с малыми геометрическими искажениями. 
