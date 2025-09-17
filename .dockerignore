@@ -15,5 +15,6 @@ readme_pictures/
 test_model/
 .git/
 .gitignore
+.gitattributes
 README.md
 
