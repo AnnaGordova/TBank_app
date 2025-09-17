@@ -8,8 +8,9 @@
     * Способ 1 (рекомендуемый): использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `ultralytics/ultralytics:latest`)
 
         Скачиваем образ:
-
-        ```sudo docker pull annagordova/logo-ultra:latest```
+        ```
+        sudo docker pull annagordova/logo-ultra:latest
+        ```
 
         Запуск на GPU:
 
