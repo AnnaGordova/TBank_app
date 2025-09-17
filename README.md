@@ -4,93 +4,70 @@
 
 ## Инструкция по запуску и использованию
 
-1. Через Docker :whale:
-    * **Способ 1 (рекомендуемый)**: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `ultralytics/ultralytics:latest`)
+Через Docker :whale:
+  * **Способ 1 (рекомендуемый)**: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `ultralytics/ultralytics:latest`)
 
-        **Скачиваем образ:**
-        ```
-        sudo docker pull annagordova/logo-ultra:latest
-        ```
+      **Скачиваем образ:**
+      ```
+      sudo docker pull annagordova/logo-ultra:latest
+      ```
 
-        **Запуск на GPU:**
-        ```
-        sudo docker run --shm-size 16g --name logo --network host --gpus all annagordova/logo-ultra
-        ```
+      **Запуск на GPU:**
+      ```
+      sudo docker run --shm-size 16g --name logo --network host --gpus all annagordova/logo-ultra
+      ```
 
-        **Запуск на CPU:**
-        ```
-        sudo docker run --name logo --network host annagordova/logo-ultra
-        ```
+      **Запуск на CPU:**
+      ```
+      sudo docker run --name logo --network host annagordova/logo-ultra
+      ```
 
-    * **Способ 2**: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04`) 
+  * **Способ 2**: использовать готовый предварительно собранный мной образ из DockerHub (в основе лежит образ `nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04`) 
 
-        **Скачиваем образ:**
-        ```
-        sudo docker pull annagordova/logo:latest
-        ```
+      **Скачиваем образ:**
+      ```
+      sudo docker pull annagordova/logo:latest
+      ```
 
-        **Запуск на GPU:**
-        ```
-        sudo docker run --shm-size 16g --name logo --network host --gpus all annagordova/logo
-        ```
+      **Запуск на GPU:**
+       ```
+      sudo docker run --shm-size 16g --name logo --network host --gpus all annagordova/logo
+      ```
 
-        **Запуск на CPU:**
-        ```
-        sudo docker run --name logo --network host annagordova/logo
-        ```
+      **Запуск на CPU:**
+      ```
+      sudo docker run --name logo --network host annagordova/logo
+      ```
 
-    * **Способ 3**: собрать контейнер из этого репозитория (в основе лежит образ `ultralytics/ultralytics:latest`) 
-
-        **Скачиваем репозиторий:**
-        ```
-        git clone https://github.com/AnnaGordova/TBank_app.git
-        ```
-
-        **Переходим в корень скачанного репозитория:**
-        ```
-        cd TBank_app
-        ```
-
-        **Собираем Docker-образ:**
-        ```
-        sudo docker build -t logo-detector . 
-        ```
-
-        **Запуск на GPU:**
-        ```
-        sudo docker run --shm-size 16g --name logo --network host --gpus all logo-detector
-        ```
-
-        **Запуск на CPU:**
-        ```
-        sudo docker run --name logo --network host logo-detector
-        ```
-
-    REST-API сервис будет запущен по адресу: `http://127.0.0.1:8000`. Swagger документация будет доступна по адресу `http://127.0.0.1:8000/docs`. Эндпоинт `/detect` доступен по адреcу `http://127.0.0.1:8000/detect`. О других доступных эндпоинтах будет рассказано далее. 
-
-2. Сборка напрямую из git репозитория :computer:
+  * **Способ 3**: собрать контейнер из этого репозитория (в основе лежит образ `ultralytics/ultralytics:latest`) 
 
       **Скачиваем репозиторий:**
-    
-        git clone https://github.com/AnnaGordova/TBank_app.git
+      ```
+      git clone https://github.com/AnnaGordova/TBank_app.git
+      ```
 
       **Переходим в корень скачанного репозитория:**
+      ```
+      cd TBank_app
+      ```
 
-        cd TBank_app
+      **Собираем Docker-образ:**
+      ```
+      sudo docker build -t logo-detector . 
+      ```
 
-      **Запускаем RST-API cервиc**
+      **Запуск на GPU:**
+      ```
+      sudo docker run --shm-size 16g --name logo --network host --gpus all logo-detector
+      ```
 
-        uvicorn app.main:app --reload --port 8000
-        
-       
+      **Запуск на CPU:**
+      ```
+      sudo docker run --name logo --network host logo-detector
+      ```
+
+    REST-API сервис будет запущен по адресу: `http://127.0.0.1:8000`. Swagger документация будет доступна по адресу `http://127.0.0.1:8000/docs`. Эндпоинт `/detect` доступен по адреcу `http://127.0.0.1:8000/detect`. О других доступных эндпоинтах будет рассказано далее. 
   
-    
-
-        
-        
-   
-  
-
 ## Компоненты репозитория
 
 1. `app` - исходный код REST-API сервиса;
